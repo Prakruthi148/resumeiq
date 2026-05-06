@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeIQ — AI Career Advisor</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────────────────── -->
+<nav>
+    <div class="container">
+        <div class="inner">
+            <div class="logo">Resume<span>IQ</span></div>
+            <div class="badge">AI Career Advisor</div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- ── Hero ────────────────────────────────────────────────────────── -->
+    <section class="hero">
+        <div class="hero-tag">✦ Powered by AI Analysis</div>
+        <h1>Turn Your Resume Into<br>Your <em>Strongest Asset</em></h1>
+        <p>Upload your resume and get instant AI-powered feedback, job match scoring, career path guidance, and improvement tips.</p>
+    </section>
+
+    <!-- ── Upload ──────────────────────────────────────────────────────── -->
+    <section class="upload-section">
+        <div class="upload-card" id="dropZone">
+            <div class="upload-icon">📄</div>
+            <h2>Upload Your Resume</h2>
+            <p>Drop your file here or click to browse.<br>
+               <strong>Supported: .txt and .pdf files</strong></p>
+
+            <label class="btn-upload" for="resumeInput">
+                <span>📁</span> Choose File
+            </label>
+            <input type="file" id="resumeInput" accept=".txt,.text,.pdf">
+
+            <div class="file-name" id="fileName"></div>
+            <div class="error-msg" id="errorMsg"></div>
+            <br>
+            <button class="btn-analyze" id="analyzeBtn" onclick="analyzeResume()">
+                ✨ Analyze My Resume
+            </button>
+        </div>
+
+        <div class="loader" id="loader">
+            <div class="loader-ring"></div>
+            <p>Analyzing your resume with AI...</p>
+        </div>
+    </section>
+
+    <!-- ── Results ─────────────────────────────────────────────────────── -->
+    <section id="results">
+        <div class="results-header">
+            <h2>Your Resume Analysis</h2>
+            <p>Here's what our AI found — let's level up your career.</p>
+        </div>
+
+        <!-- Score + Sections -->
+        <div class="score-section">
+            <div class="score-card">
+                <div class="score-ring-wrap">
+                    <svg class="score-ring" viewBox="0 0 140 140">
+                        <circle class="bg"   cx="70" cy="70" r="65"/>
+                        <circle class="fill" cx="70" cy="70" r="65" id="scoreRing"/>
+                    </svg>
+                    <div class="score-number">
+                        <span id="scoreNum">0</span>
+                        <span>/ 100</span>
+                    </div>
+                </div>
+                <div class="score-label" id="scoreLabel">—</div>
+                <div class="score-desc"  id="scoreDesc"></div>
+            </div>
+
+            <div class="info-card">
+                <div class="card-title">Detected Skills</div>
+                <div class="tag-list" id="skillsList"></div>
+                <div class="section-divider"></div>
+                <div class="card-title">Resume Sections</div>
+                <div class="tag-list" id="sectionsList"></div>
+            </div>
+        </div>
+
+        <!-- Strengths & Weaknesses -->
+        <div class="grid-2">
+            <div class="info-card">
+                <div class="card-title">Strengths</div>
+                <ul class="feedback-list" id="strengthsList"></ul>
+            </div>
+            <div class="info-card">
+                <div class="card-title">Weaknesses</div>
+                <ul class="feedback-list" id="weaknessesList"></ul>
+            </div>
+        </div>
+
+        <!-- Improvement Suggestions -->
+        <div class="full-card">
+            <div class="card-title">How to Improve Your Resume</div>
+            <ul class="feedback-list" id="suggestionsList"></ul>
+        </div>
+
+        <!-- Job Matches -->
+        <div class="full-card">
+            <div class="card-title">Job Role Matches</div>
+            <div id="jobMatchesList"></div>
+        </div>
+
+        <!-- Career Path -->
+        <div class="full-card">
+            <div class="card-title">Suggested Career Path</div>
+            <p style="color:var(--muted);font-size:0.9rem;margin-bottom:20px;">
+                Based on your top match: <span id="topRole" style="color:var(--accent);font-weight:600;"></span>
+            </p>
+            <div class="path-steps" id="careerPath"></div>
+            <div class="section-divider"></div>
+            <div class="card-title">Skills to Learn Next</div>
+            <div class="learn-tags" id="learnTags"></div>
+        </div>
+    </section>
+
+</div><!-- /container -->
+
+<!-- ── Footer ──────────────────────────────────────────────────────────── -->
+<footer>
+    <div class="container">
+        ResumeIQ &mdash; AI Resume Analyser &amp; Career Advisor &mdash; Built with Django
+    </div>
+</footer>
+
+<!-- ── Scripts: load in dependency order ───────────────────────────────── -->
+<script src="{% static 'js/upload.js' %}"></script>
+<script src="{% static 'js/api.js' %}"></script>
+<script src="{% static 'js/renderer.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>
